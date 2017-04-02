@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div ng-app="myApp">
+    <div ng-controller="myappController">
+        <div class="jumbotron">
+            <form class="form-horizontal" id="deploymentForm" name="deploymentForm" autocomplete="off" role="form" enctype="multipart/form-data" method="post">
+                @*<input type="text" ng-model="DeploymentLocation" />
+                    <input type="file" id="filesToUpload" />*@
+
+                <div class="form-group">
+                    <label for="environmentList" class="col-sm-4 control-label">Destination Environment</label>
+                    <div class="input-group text-left">
+                        <select ng-model="deploymentListObject.selectedEnvironment" id="environmentList" name="environmentList" class="form-control"
+                                data-ng-options="listItem.Environment for listItem in environmentList"
+                                ng-change="newEnvironmentSelected(deploymentListObject.selectedEnvironment)" required></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="deploymentFolder" class="col-sm-4 control-label">Deployment Folder</label>
+                    <div class="input-group text-left" id="deploymentFolder">
+                        <input type="text" length="100" class="form-control" ng-model="deploymentListObject.deploymentFolder" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="applicationList" class="col-sm-4 control-label">Application Name</label>
+                    <div class="input-group text-left">
+                        <select ng-model="deploymentListObject.selectedApplication" id="applicationList" name="applicationlist" class="form-control"
+                                data-ng-options="listItem for listItem in selectList"
+                                ng-change="newAppSelected(deploymentListObject.selectedApplication)"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fileUpload" class="col-sm-4 control-label">Select Files to be Deployed</label>
+                    <div class="input-group text-left" id="fileUpload">
+                        <input type="file" class="form-control" ng-file-model="deploymentListObject.files" multiple />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5 col-sm-offset-2 text-right">
+                        <button class="btn btn-primary" type="button" id="previous" ng-click="updatePreviousStep()">
+                            Previous
+                        </button>
+                        <button class="btn btn-primary" type="button" id="submit" ng-click="getDeploymentSteps(deploymentListObject)">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row" ng-repeat="(key, value) in deploymentSteps">
+                <div class="col-sm-10">
+                    Step-{{key+1}}: {{value.Instructions}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
